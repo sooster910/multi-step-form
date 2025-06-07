@@ -8,7 +8,7 @@ type StepProps = {
 
 /**
  * 현재 단계에 해당하는 컴포넌트를 렌더링 여부를 결정하는 컴포넌트
- * @param param0 - 단계 경로와 하위 컴포넌트
+ * @param  - 단계 경로와 하위 컴포넌트
  * @returns 현재 단계에 해당하는 컴포넌트를 렌더링 여부를 결정하는 컴포넌트
  */
 export const Step = ({ children, path }: StepProps) => {
