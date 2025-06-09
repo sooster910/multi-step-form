@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router";
-import type { Step as StepType } from "@/, useMemoshared/ui/funnel/types";
+import type { Step as StepType } from "@/shared/ui/funnel/types";
 import { useMemo } from "react";
 
 /**
@@ -16,7 +16,7 @@ export const useStepNavigation = (steps: StepType[]) => {
     steps.findIndex((step) => step.path === currentStepPath) ?? 0;
 
   const navigateToNextStep = () => {
-    if (!canNavigateNext()) return;
+    if (!canNavigateNext) return;
     const nextStep = steps[currentStepIndex + 1];
     navigate(`${basePath}/step/${nextStep.path}`);
   };
@@ -27,16 +27,17 @@ export const useStepNavigation = (steps: StepType[]) => {
     navigate(`${basePath}/step/${prevStep.path}`);
   };
 
-  const canNavigateNext = () => {
+  const canNavigateNext = useMemo(() => {
     if (currentStepIndex >= steps.length - 1) return false;
     const nextStep = steps[currentStepIndex + 1];
     return Boolean(nextStep.path);
-  };
+  }, [currentStepIndex]);
+
   const canNavigatePrevious = useMemo(() => {
     if (currentStepIndex <= 0) return false;
     const prevStep = steps[currentStepIndex - 1];
     return Boolean(prevStep.path);
-  }, [currentStepIndex, steps]);
+  }, [currentStepIndex]);
 
   return {
     steps,

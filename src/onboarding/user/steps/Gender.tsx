@@ -1,13 +1,8 @@
 import { useFunnel } from "@/shared/ui/funnel/hooks/useFunnel";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  useForm,
-  type FieldErrors,
-  type FieldValues,
-  type UseFormHandleSubmit,
-  type UseFormRegister,
-} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { GenderSchema, type UserOnBoardingDTO } from "../schema";
+import type { FunnelFormProps } from "..";
 
 export const Gender = () => {
   const {
@@ -36,13 +31,14 @@ export const Gender = () => {
       navigateToNextStep();
     }
   };
+
   return (
     <GenderForm
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
       register={register}
       errors={errors}
-      navigateToPreviousStep={navigateToPreviousStep}
+      onPreviousStep={navigateToPreviousStep}
       canNavigatePrevious={canNavigatePrevious}
     />
   );
@@ -53,7 +49,7 @@ const GenderForm = ({
   register,
   errors,
   handleSubmit,
-  navigateToPreviousStep,
+  onPreviousStep,
   canNavigatePrevious,
 }: FunnelFormProps<"gender">) => {
   return (
@@ -68,7 +64,11 @@ const GenderForm = ({
         여성
       </label>
       <p>{errors.gender?.message}</p>
-      <button onClick={navigateToPreviousStep} disabled={!canNavigatePrevious}>
+      <button
+        type="button"
+        onClick={onPreviousStep}
+        disabled={!canNavigatePrevious}
+      >
         이전
       </button>
       <button type="submit">다음</button>

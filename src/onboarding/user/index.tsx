@@ -11,7 +11,7 @@ export type FunnelFormProps<T extends keyof UserOnBoardingDTO> = {
   onSubmit: (data: Pick<UserOnBoardingDTO, T>) => void;
   register: UseFormRegister<Pick<UserOnBoardingDTO, T>>;
   errors: FieldErrors<Pick<UserOnBoardingDTO, T>>;
-  navigateToPreviousStep: () => void;
+  onPreviousStep: () => void;
   canNavigatePrevious: boolean;
   handleSubmit: UseFormHandleSubmit<Pick<UserOnBoardingDTO, T>>;
 };

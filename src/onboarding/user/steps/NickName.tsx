@@ -28,13 +28,14 @@ export const NickName = () => {
     });
     navigateToNextStep();
   };
+
   return (
     <NickNameForm
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
       register={register}
       errors={errors}
-      navigateToPreviousStep={navigateToPreviousStep}
+      onPreviousStep={navigateToPreviousStep}
       canNavigatePrevious={canNavigatePrevious}
     />
   );
@@ -45,7 +46,7 @@ const NickNameForm = ({
   onSubmit,
   register,
   errors,
-  navigateToPreviousStep,
+  onPreviousStep,
   canNavigatePrevious,
 }: FunnelFormProps<"nickname">) => {
   return (
@@ -53,7 +54,7 @@ const NickNameForm = ({
       <h2>닉네임</h2>
       <input {...register("nickname")} />
       <p>{errors.nickname?.message}</p>
-      <button onClick={navigateToPreviousStep} disabled={!canNavigatePrevious}>
+      <button onClick={onPreviousStep} disabled={!canNavigatePrevious}>
         이전
       </button>
       <button type="submit">다음</button>
