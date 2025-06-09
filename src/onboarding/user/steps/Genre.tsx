@@ -1,15 +1,9 @@
 import { useFunnel } from "@/shared/ui/funnel/hooks/useFunnel";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  useForm,
-  type FieldErrors,
-  type FieldValues,
-  type UseFormHandleSubmit,
-  type UseFormRegister,
-} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { GenderSchema, type UserOnBoardingDTO } from "../schema";
 
-export const Gender = () => {
+export const Genre = () => {
   const {
     updateFormData,
     navigateToNextStep,
@@ -18,8 +12,8 @@ export const Gender = () => {
     canNavigatePrevious,
   } = useFunnel();
   const {
-    handleSubmit,
     register,
+    handleSubmit,
     formState: { errors },
   } = useForm<Pick<UserOnBoardingDTO, "gender">>({
     resolver: zodResolver(GenderSchema),
@@ -36,26 +30,6 @@ export const Gender = () => {
       navigateToNextStep();
     }
   };
-  return (
-    <GenderForm
-      handleSubmit={handleSubmit}
-      onSubmit={onSubmit}
-      register={register}
-      errors={errors}
-      navigateToPreviousStep={navigateToPreviousStep}
-      canNavigatePrevious={canNavigatePrevious}
-    />
-  );
-};
-
-const GenderForm = ({
-  onSubmit,
-  register,
-  errors,
-  handleSubmit,
-  navigateToPreviousStep,
-  canNavigatePrevious,
-}: FunnelFormProps<"gender">) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h1>성별 *</h1>

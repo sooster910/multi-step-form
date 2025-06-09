@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NickNameSchema, type UserOnBoardingDTO } from "../schema";
 import { useFunnel } from "@/shared/ui/funnel/hooks/useFunnel";
+import type { FunnelFormProps } from "..";
 
 export const NickName = () => {
   const {
@@ -27,6 +28,26 @@ export const NickName = () => {
     });
     navigateToNextStep();
   };
+  return (
+    <NickNameForm
+      handleSubmit={handleSubmit}
+      onSubmit={onSubmit}
+      register={register}
+      errors={errors}
+      navigateToPreviousStep={navigateToPreviousStep}
+      canNavigatePrevious={canNavigatePrevious}
+    />
+  );
+};
+
+const NickNameForm = ({
+  handleSubmit,
+  onSubmit,
+  register,
+  errors,
+  navigateToPreviousStep,
+  canNavigatePrevious,
+}: FunnelFormProps<"nickname">) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h2>닉네임</h2>
