@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createContext, useEffect, type ReactNode } from "react";
+import { createContext, type ReactNode } from "react";
 import type { Step as StepType } from "@/shared/ui/funnel/types";
 import { Step as StepComponent } from "@/shared/ui/funnel/components/Step";
 import { useStepNavigation } from "@/shared/ui/funnel/hooks/useStepNavigation";
@@ -29,6 +29,7 @@ export const Funnel = <T extends Record<string, any>>({
 }: FunnelProps<T>) => {
   const [formData, setFormData] = useState<Partial<T>>(initialData);
 
+  console.log("formData", formData);
   const updateFormData = (data: Partial<T>) => {
     setFormData((prev) => ({ ...prev, ...data }));
   };
@@ -49,12 +50,10 @@ export const Funnel = <T extends Record<string, any>>({
 
   const { isValidStep, redirectToFirstStep } = useFunnelRouting(steps);
   const stepNavigation = useStepNavigation(steps);
-  useEffect(() => {
-    if (!isValidStep()) {
-      redirectToFirstStep();
-    }
-  }, [isValidStep, redirectToFirstStep, stepNavigation.currentStep]);
 
+  if (!isValidStep()) {
+    return redirectToFirstStep();
+  }
   if (!stepNavigation) {
     throw new Error("Step navigation is not initialized");
   }

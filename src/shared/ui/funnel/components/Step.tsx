@@ -13,8 +13,7 @@ type StepProps = {
  */
 export const Step = ({ children, path }: StepProps) => {
   const { currentStep } = useFunnel();
-
-  if (currentStep.path !== path) {
+  if (!currentStep?.path || currentStep.path !== path) {
     return null;
   }
   return <div id={`step-${path}`}>{children}</div>;

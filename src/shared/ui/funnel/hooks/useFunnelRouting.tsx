@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import { useParams } from "react-router";
 import type { Step } from "@/shared/ui/funnel/types";
 
@@ -14,13 +14,12 @@ const resolveBasePath = (pathname: string) => {
  */
 export function useFunnelRouting(steps: Step[]) {
   const { step: currentStep } = useParams();
-  const navigate = useNavigate();
 
   const isValidStep = () => steps.some((step) => step.path === currentStep);
-
   const redirectToFirstStep = () => {
     const basePath = resolveBasePath(window.location.pathname);
-    navigate(`${basePath}/step/${steps[0].path}`, { replace: true });
+    const redirectPath = `${basePath}/step/${steps[0].path}`;
+    return <Navigate to={redirectPath} replace={true} />;
   };
 
   return { isValidStep, redirectToFirstStep };
